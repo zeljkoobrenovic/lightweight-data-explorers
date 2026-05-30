@@ -12,8 +12,8 @@
           "apps": [
             {
               "name": "Aligned Rituals",
-              "link": "../../../standards/rituals/index.html",
-              "icon": "../../../standards/rituals/icons/logo.png",
+              "link": "../standards/rituals/index.html",
+              "icon": "../standards/rituals/icons/logo.png",
               "description": "aligned rituals and meeting cadence",
               "source": ""
             }
@@ -69,7 +69,7 @@
           "apps": [
             {
               "name": "Career Ladders",
-              "link": "../../../standards/job-architecture/index.html",
+              "link": "../standards/job-architecture/index.html",
               "icon": "icons/career-ladder.png",
               "description": "role levels and career paths",
               "source": ""
@@ -93,8 +93,8 @@
           "apps": [
             {
               "name": "Security & Compliance<br>Controls",
-              "link": "../../../controls/security-controls/index.html",
-              "icon": "../../../controls/security-controls/icons/logo.png",
+              "link": "../controls/security-controls/index.html",
+              "icon": "../controls/security-controls/icons/logo.png",
               "description": "security and compliance controls",
               "source": ""
             }
@@ -105,8 +105,8 @@
           "apps": [
             {
               "name": "Management<br>Controls",
-              "link": "../../../controls/management-controls/index.html",
-              "icon": "../../../controls/management-controls/icons/management.png",
+              "link": "../controls/management-controls/index.html",
+              "icon": "../controls/management-controls/icons/management.png",
               "description": "management controls and checks",
               "source": ""
             }
@@ -117,15 +117,15 @@
           "apps": [
             {
               "name": "Engineering<br>Controls",
-              "link": "../../../controls/engineering-controls/index.html",
-              "icon": "../../../controls/engineering-controls/icons/engineering.png",
+              "link": "../controls/engineering-controls/index.html",
+              "icon": "../controls/engineering-controls/icons/engineering.png",
               "description": "engineering controls in delivery workflows",
               "source": ""
             },
             {
               "name": "Operational<br>Controls",
-              "link": "../../../controls/operational-controls/index.html",
-              "icon": "../../../controls/operational-controls/icons/operations.png",
+              "link": "../controls/operational-controls/index.html",
+              "icon": "../controls/operational-controls/icons/operations.png",
               "description": "production operational controls",
               "source": ""
             }
@@ -174,22 +174,22 @@
           "apps": [
             {
               "name": "AWS Usage Explorer",
-              "link": "../../../data-explorers/aws/index.html",
-              "icon": "../../../data-explorers/aws/logos/general/aws.svg",
+              "link": "../data-explorers/aws/index.html",
+              "icon": "../data-explorers/aws/logos/general/aws.svg",
               "description": "AWS usage and cost signals",
               "source": ""
             },
             {
               "name": "GCP Usage Explorer",
-              "link": "../../../data-explorers/gcp/index.html",
-              "icon": "../../../data-explorers/gcp/logos/general/gcp.png",
+              "link": "../data-explorers/gcp/index.html",
+              "icon": "../data-explorers/gcp/logos/general/gcp.png",
               "description": "GCP usage and cost signals",
               "source": ""
             },
             {
               "name": "IT Budget",
-              "link": "../../../data-explorers/budget/index.html",
-              "icon": "../../../data-explorers/budget/icons/budget.png",
+              "link": "../data-explorers/budget/index.html",
+              "icon": "../data-explorers/budget/icons/budget.png",
               "description": "IT budget overview",
               "source": ""
             }
@@ -200,8 +200,8 @@
           "apps": [
             {
               "name": "Business Scorecard",
-              "link": "../business-scorecard/index.html",
-              "icon": "../business-scorecard/icons/logo.png",
+              "link": "../data-explorers/scorecard/index.html",
+              "icon": "../data-explorers/scorecard/icons/logo.png",
               "description": "business-level KPIs and metrics",
               "source": ""
             },
@@ -239,7 +239,7 @@
           "apps": [
             {
               "name": "Jira Tickets",
-              "link": "../../../data-explorers/incidents/index.html",
+              "link": "../data-explorers/incidents/index.html",
               "icon": "icons/tickets.png",
               "description": "Jira ticket activity",
               "source": ""
@@ -253,14 +253,14 @@
             },
             {
               "name": "Incidents & RCAs",
-              "link": "../../../data-explorers/incidents/index.html",
-              "icon": "../../../data-explorers/incidents/assets/logo.png",
+              "link": "../data-explorers/incidents/index.html",
+              "icon": "../data-explorers/incidents/assets/logo.png",
               "description": "incidents and RCA records",
               "source": ""
             },
             {
               "name": "Customer Support<br>Tickets",
-              "link": "../../../data-explorers/incidents/index.html",
+              "link": "../data-explorers/incidents/index.html",
               "icon": "icons/customer-support.png",
               "description": "customer support ticket flow",
               "source": ""
@@ -286,7 +286,7 @@
             },
             {
               "name": "#Slack Buzz",
-              "link": "../../../data-explorers/slack/index.html",
+              "link": "../data-explorers/slack/index.html",
               "icon": "icons/slack.png",
               "description": "recent Slack channel activity",
               "source": ""

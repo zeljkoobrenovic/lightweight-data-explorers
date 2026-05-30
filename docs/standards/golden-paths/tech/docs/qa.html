@@ -140,18 +140,17 @@
 
     </style>
     <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Lato">
 </head>
 <body>
 <script>
-    var array = [{"type": "General", "path": "Xray", "qualifier": "Internal Quality", "start_group": "Test Case Management", "icon": "xray.png", "description": "Xray for Jira allows our teams to create, view, and manage test cases directly within the Jira environment. Some key features of Xray include: Test Case Management, Test Execution, Integration with Jira, Requirements Traceability, Test Automation Integration and Reporting and Metrics"}, {"type": "General", "path": "Sonarcloud", "qualifier": "Internal Quality", "start_group": "Internal Quality", "icon": "sonarcloud.png", "description": "Sonarcloud is our tool that helps you keep your code in tip-top shape. One of the standout features of SonarCloud is its ability to analyze your code for issues like bugs, security vulnerabilities, code smells, and more."}, {"type": "General", "path": "Chromatic", "qualifier": "Internal Quality", "start_group": "Visual Testing", "icon": "chromatic.png", "description": "Chromatic is a visual testing & review tool that scans every possible UI state across browsers to catch visual and functional bugs. Assign reviewers and resolve discussions to streamline team sign-off."}, {"type": "General", "path": "Datadog Synthetic Test", "qualifier": "Internal Quality", "start_group": "Proactive Monitoring", "icon": "datadog.png", "description": "Synthetic testing, also known as synthetic monitoring or proactive monitoring, is a way that we identify performance issues with key user journeys by simulating real user traffic."}, {"type": "General", "path": "Provar", "qualifier": "Internal Quality", "start_group": "Salesforce Test Automation", "icon": "provar.png", "description": "Provar is our test automation tool for testing applications built on the Salesforce platform. Salesforce is a cloud-based customer relationship management (CRM) platform used by many organizations for managing customer interactions and business processes"}, {"type": "General", "path": "Mailausor", "qualifier": "Internal Quality", "start_group": "Email & SMS Testing", "icon": "mailosaur.png", "description": "Mailosaur is a test and analyze email and SMS messages as part of manual and automated testing process."}, {"type": "General", "path": "WebdriverIO", "qualifier": "Internal Quality", "start_group": "Unified Automation Framework", "icon": "wdiologo.png", "description": "Unified Automation Framework for automating applications across all brands and platforms."}];
+    const array = [{"type": "General", "path": "Xray", "qualifier": "Internal Quality", "start_group": "Test Case Management", "icon": "xray.png", "description": "Xray for Jira allows our teams to create, view, and manage test cases directly within the Jira environment. Some key features of Xray include: Test Case Management, Test Execution, Integration with Jira, Requirements Traceability, Test Automation Integration and Reporting and Metrics"}, {"type": "General", "path": "Sonarcloud", "qualifier": "Internal Quality", "start_group": "Internal Quality", "icon": "sonarcloud.png", "description": "Sonarcloud is our tool that helps you keep your code in tip-top shape. One of the standout features of SonarCloud is its ability to analyze your code for issues like bugs, security vulnerabilities, code smells, and more."}, {"type": "General", "path": "Chromatic", "qualifier": "Internal Quality", "start_group": "Visual Testing", "icon": "chromatic.png", "description": "Chromatic is a visual testing & review tool that scans every possible UI state across browsers to catch visual and functional bugs. Assign reviewers and resolve discussions to streamline team sign-off."}, {"type": "General", "path": "Datadog Synthetic Test", "qualifier": "Internal Quality", "start_group": "Proactive Monitoring", "icon": "datadog.png", "description": "Synthetic testing, also known as synthetic monitoring or proactive monitoring, is a way that we identify performance issues with key user journeys by simulating real user traffic."}, {"type": "General", "path": "Provar", "qualifier": "Internal Quality", "start_group": "Salesforce Test Automation", "icon": "provar.png", "description": "Provar is our test automation tool for testing applications built on the Salesforce platform. Salesforce is a cloud-based customer relationship management (CRM) platform used by many organizations for managing customer interactions and business processes"}, {"type": "General", "path": "Mailausor", "qualifier": "Internal Quality", "start_group": "Email & SMS Testing", "icon": "mailosaur.png", "description": "Mailosaur is a test and analyze email and SMS messages as part of manual and automated testing process."}, {"type": "General", "path": "WebdriverIO", "qualifier": "Internal Quality", "start_group": "Unified Automation Framework", "icon": "wdiologo.png", "description": "Unified Automation Framework for automating applications across all brands and platforms."}];
 
-    var appendObject = document.body;
+    let appendObject = document.body;
 
     array.forEach(function (app) {
         if (app.start_group) {
-            var groupDiv = document.createElement('div');
-            var title = document.createElement('div');
+            const groupDiv = document.createElement('div');
+            const title = document.createElement('div');
             title.innerHTML = app.start_group;
             title.classList.add('group-title');
             groupDiv.appendChild(title);
@@ -159,9 +158,9 @@
             document.body.append(groupDiv);
             appendObject = groupDiv
         }
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         appendObject.appendChild(div);
-        var html = '<div class="app">';
+        let html = '<div class="app">';
         if (app.link) {
             html += '    <a target="_blank" href="' + app.link + '">\n';
         }

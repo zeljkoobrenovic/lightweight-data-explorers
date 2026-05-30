@@ -140,18 +140,17 @@
 
     </style>
     <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Lato">
 </head>
 <body>
 <script>
-    var array = [{"type": "General", "path": "Python", "start_group": "Compute", "icon": "python.png"}, {"type": "AWS", "path": "Lambdas", "constraints": "on Python Stack", "constraints_explanation": "typically owned by team building python services", "icon": "aws/lambda.svg"}, {"type": "AWS", "path": "Athena", "icon": "aws/athena.svg", "description": "A serverless, interactive analytics service supporting open-table and file formats. Athena provides a simplified, flexible way to analyze petabytes of data where it lives, e.g., from an Amazon Simple Storage Service (S3) data lake and 30 data sources, including on-premises data sources or other cloud systems using SQL or Python. Built on open-source Trino and Presto engines and Apache Spark frameworks, with no provisioning or configuration effort required."}, {"type": "AWS", "path": "Glue", "icon": "aws/glue.svg"}, {"type": "AWS", "path": "Lake Formation", "icon": "aws/lake-formation.svg"}, {"type": "AWS", "path": "EMR", "icon": "aws/emr.svg"}, {"type": "AWS", "path": "Sagemaker", "start_group": "ML/AI", "icon": "aws/sagemaker.svg"}, {"type": "AWS", "path": "Jupyter Notebooks", "icon": "jupyter.png"}];
+    const array = [{"type": "General", "path": "Python", "start_group": "Compute", "icon": "python.png"}, {"type": "AWS", "path": "Lambdas", "constraints": "on Python Stack", "constraints_explanation": "typically owned by team building python services", "icon": "aws/lambda.svg"}, {"type": "AWS", "path": "Athena", "icon": "aws/athena.svg", "description": "A serverless, interactive analytics service supporting open-table and file formats. Athena provides a simplified, flexible way to analyze petabytes of data where it lives, e.g., from an Amazon Simple Storage Service (S3) data lake and 30 data sources, including on-premises data sources or other cloud systems using SQL or Python. Built on open-source Trino and Presto engines and Apache Spark frameworks, with no provisioning or configuration effort required."}, {"type": "AWS", "path": "Glue", "icon": "aws/glue.svg"}, {"type": "AWS", "path": "Lake Formation", "icon": "aws/lake-formation.svg"}, {"type": "AWS", "path": "EMR", "icon": "aws/emr.svg"}, {"type": "AWS", "path": "Sagemaker", "start_group": "ML/AI", "icon": "aws/sagemaker.svg"}, {"type": "AWS", "path": "Jupyter Notebooks", "icon": "jupyter.png"}];
 
-    var appendObject = document.body;
+    let appendObject = document.body;
 
     array.forEach(function (app) {
         if (app.start_group) {
-            var groupDiv = document.createElement('div');
-            var title = document.createElement('div');
+            const groupDiv = document.createElement('div');
+            const title = document.createElement('div');
             title.innerHTML = app.start_group;
             title.classList.add('group-title');
             groupDiv.appendChild(title);
@@ -159,9 +158,9 @@
             document.body.append(groupDiv);
             appendObject = groupDiv
         }
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         appendObject.appendChild(div);
-        var html = '<div class="app">';
+        let html = '<div class="app">';
         if (app.link) {
             html += '    <a target="_blank" href="' + app.link + '">\n';
         }

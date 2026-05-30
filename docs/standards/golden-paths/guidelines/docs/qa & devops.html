@@ -140,20 +140,19 @@
 
     </style>
     <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Lato">
 </head>
 <body>
 <script>
-    var array = [{"type": "General", "start_group": "General", "path": "Code Freeze", "link": "https://www.jetbrains.com/teamcity/ci-cd-guide/faq/code-freeze/", "icon": "freeze.png"}, {"type": "General", "start_group": "Bugs & Incidents", "path": "Production Bugs SLAs / SLOs", "link": "https://www.atlassian.com/incident-management/kpis/sla-vs-slo-vs-sli", "icon": "prod-bugs.png"}, {"type": "General", "path": "Bug Management Process", "link": "https://www.geeksforgeeks.org/defect-management-process/", "icon": "bugs.png"}, {"type": "General", "path": "Root Cause Analysis (RCA) Process", "link": "https://www.cms.gov/medicare/provider-enrollment-and-certification/qapi/downloads/guidanceforrca.pdf", "icon": "root.png"}];
+    const array = [{"type": "General", "start_group": "General", "path": "Code Freeze", "link": "https://www.jetbrains.com/teamcity/ci-cd-guide/faq/code-freeze/", "icon": "freeze.png"}, {"type": "General", "start_group": "Bugs & Incidents", "path": "Production Bugs SLAs / SLOs", "link": "https://www.atlassian.com/incident-management/kpis/sla-vs-slo-vs-sli", "icon": "prod-bugs.png"}, {"type": "General", "path": "Bug Management Process", "link": "https://www.geeksforgeeks.org/defect-management-process/", "icon": "bugs.png"}, {"type": "General", "path": "Root Cause Analysis (RCA) Process", "link": "https://www.cms.gov/medicare/provider-enrollment-and-certification/qapi/downloads/guidanceforrca.pdf", "icon": "root.png"}];
 
-    var appendObject = document.body;
+    let appendObject = document.body;
 
     let prev_group = '';
     array.forEach(function (app) {
         if (app.start_group && app.start_group != prev_group) {
             prev_group = app.start_group;
-            var groupDiv = document.createElement('div');
-            var title = document.createElement('div');
+            const groupDiv = document.createElement('div');
+            const title = document.createElement('div');
             title.innerHTML = app.start_group;
             title.classList.add('group-title');
             groupDiv.appendChild(title);
@@ -161,9 +160,9 @@
             document.body.append(groupDiv);
             appendObject = groupDiv
         }
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         appendObject.appendChild(div);
-        var html = '<div class="app">';
+        let html = '<div class="app">';
         if (app.link) {
             html += '    <a target="_blank" href="' + app.link + '">\n';
         }

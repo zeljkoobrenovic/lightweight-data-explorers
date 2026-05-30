@@ -140,18 +140,17 @@
 
     </style>
     <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Lato">
 </head>
 <body>
 <script>
-    var array = [{"type": "General", "path": "React", "qualifier": "Web", "start_group": "Web", "icon": "react.png", "description": "React is a standard Web framework."}, {"type": "General", "path": "TypeScript", "qualifier": "Web", "icon": "typescript.png", "description": "TypeScript is a standard programming language for Web development, already widely adopted."}, {"type": "General", "path": "Swift", "qualifier": "iOS", "start_group": "Mobile", "icon": "swift.png", "description": "Swift is the de facto standard for writing native iOS mobile applications, already widely adopted."}, {"type": "General", "path": "SwiftUI", "qualifier": "iOS", "icon": "swiftui.jpeg", "description": "SwiftUI is a standard user interface toolking for native iOS apps."}, {"type": "General", "path": "Kotlin", "qualifier": "Android", "icon": "kotlin.png", "description": "Kotlin is the de facto standard for writing native Android mobile applications, already widely adopted."}, {"type": "General", "path": "Compose", "qualifier": "Android", "icon": "compose.png", "description": "Compose is Android's recommended modern toolkit for building native UI."}, {"type": "General", "path": "Airship", "qualifier": "Push notifications", "icon": "airship.png", "description": "Airship is standard tool for mobile push notifications."}, {"type": "General", "path": "Firebase", "qualifier": "monitoring, a/b tests, config", "icon": "firebase.png", "description": "Firebase is standard set of tools for native mobile development."}, {"type": "General", "path": "Google Analytics", "qualifier": "User Tracking", "start_group": "User Tracking", "icon": "google-analytics.png", "description": "Google Analytics is de facto standard for use tracking on both mobile and web."}, {"type": "General", "path": "Lokalise", "qualifier": "Localization and Translation", "start_group": "Localization", "icon": "lokalise.png", "description": "Lokalise is a standard localization and translation management platform."}, {"type": "General", "path": "UserCentrics", "qualifier": "Consent Management Platform", "start_group": "Consent Management", "icon": "usercentrics.png", "description": "UserCentrics is our Consent Management Platforms (CMP) standard."}, {"type": "General", "path": "Kameleoon", "start_group": "A/B Testing", "icon": "kameleoon.png"}];
+    const array = [{"type": "General", "path": "React", "qualifier": "Web", "start_group": "Web", "icon": "react.png", "description": "React is a standard Web framework."}, {"type": "General", "path": "TypeScript", "qualifier": "Web", "icon": "typescript.png", "description": "TypeScript is a standard programming language for Web development, already widely adopted."}, {"type": "General", "path": "Swift", "qualifier": "iOS", "start_group": "Mobile", "icon": "swift.png", "description": "Swift is the de facto standard for writing native iOS mobile applications, already widely adopted."}, {"type": "General", "path": "SwiftUI", "qualifier": "iOS", "icon": "swiftui.jpeg", "description": "SwiftUI is a standard user interface toolking for native iOS apps."}, {"type": "General", "path": "Kotlin", "qualifier": "Android", "icon": "kotlin.png", "description": "Kotlin is the de facto standard for writing native Android mobile applications, already widely adopted."}, {"type": "General", "path": "Compose", "qualifier": "Android", "icon": "compose.png", "description": "Compose is Android's recommended modern toolkit for building native UI."}, {"type": "General", "path": "Airship", "qualifier": "Push notifications", "icon": "airship.png", "description": "Airship is standard tool for mobile push notifications."}, {"type": "General", "path": "Firebase", "qualifier": "monitoring, a/b tests, config", "icon": "firebase.png", "description": "Firebase is standard set of tools for native mobile development."}, {"type": "General", "path": "Google Analytics", "qualifier": "User Tracking", "start_group": "User Tracking", "icon": "google-analytics.png", "description": "Google Analytics is de facto standard for use tracking on both mobile and web."}, {"type": "General", "path": "Lokalise", "qualifier": "Localization and Translation", "start_group": "Localization", "icon": "lokalise.png", "description": "Lokalise is a standard localization and translation management platform."}, {"type": "General", "path": "UserCentrics", "qualifier": "Consent Management Platform", "start_group": "Consent Management", "icon": "usercentrics.png", "description": "UserCentrics is our Consent Management Platforms (CMP) standard."}, {"type": "General", "path": "Kameleoon", "start_group": "A/B Testing", "icon": "kameleoon.png"}];
 
-    var appendObject = document.body;
+    let appendObject = document.body;
 
     array.forEach(function (app) {
         if (app.start_group) {
-            var groupDiv = document.createElement('div');
-            var title = document.createElement('div');
+            const groupDiv = document.createElement('div');
+            const title = document.createElement('div');
             title.innerHTML = app.start_group;
             title.classList.add('group-title');
             groupDiv.appendChild(title);
@@ -159,9 +158,9 @@
             document.body.append(groupDiv);
             appendObject = groupDiv
         }
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         appendObject.appendChild(div);
-        var html = '<div class="app">';
+        let html = '<div class="app">';
         if (app.link) {
             html += '    <a target="_blank" href="' + app.link + '">\n';
         }

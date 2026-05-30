@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-CONFIG_DIR = ROOT_DIR / "_data" / "data" / "history"
+CONFIG_DIR = ROOT_DIR / "_config" / "data" / "history"
 TEMPLATES_DIR = ROOT_DIR / "_templates" / "data-explorers" / "history"
 OUTPUT_DIR = ROOT_DIR / "docs" / "data-explorers" / "history"
 DATA_DIR = CONFIG_DIR / "data"
@@ -24,6 +24,8 @@ def copy_assets() -> None:
 
 
 def main() -> None:
+    if OUTPUT_DIR.exists():
+        shutil.rmtree(OUTPUT_DIR)
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
     copy_assets()
 
@@ -33,8 +35,10 @@ def main() -> None:
     date_string = datetime.date.today().strftime("%Y-%m-%d")
 
     for source in data["data"]:
-        content = template.replace("${logos}", json.dumps(logos)).replace(
-            "${data}", json.dumps([source], ensure_ascii=False)
+        content = (
+            template.replace("${logos}", json.dumps(logos))
+            .replace("${date}", date_string)
+            .replace("${data}", json.dumps([source], ensure_ascii=False))
         )
         (OUTPUT_DIR / f"{source['source']}.html").write_text(content, encoding="utf-8")
 

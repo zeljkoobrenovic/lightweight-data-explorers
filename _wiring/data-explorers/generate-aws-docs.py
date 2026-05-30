@@ -8,7 +8,7 @@ import re
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-CONFIG_DIR = ROOT_DIR / "_data" / "data" / "aws"
+CONFIG_DIR = ROOT_DIR / "_config" / "data" / "aws"
 TEMPLATES_DIR = ROOT_DIR / "_templates" / "data-explorers" / "aws"
 OUTPUT_DIR = ROOT_DIR / "docs" / "data-explorers" / "aws"
 TEMPLATE_ICON_DIR = TEMPLATES_DIR / "icons"

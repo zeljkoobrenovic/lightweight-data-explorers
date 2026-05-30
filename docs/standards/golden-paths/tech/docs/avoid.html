@@ -140,18 +140,17 @@
 
     </style>
     <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Lato">
 </head>
 <body>
 <script>
-    var array = [{"type": "AWS", "path": "EC2", "constraints": "avoid any EC2 usage", "constraints_explanation": "EC2 provides generic virtual machines that require a significant level of low-level configuration and management by the team using it. In addition, using EC2 can lead to a considerable diversity of OS and other basic infrastructural layers, which, compared to containerized applications, can reduce portability and increase the complexity of our technology landscape. Always containerize your loads or implement them as serverless functions.", "start_group": "Compute", "icon": "aws/ec2.svg"}, {"type": "AWS", "path": "EKS", "constraints": "avoid Managed Kubernetes", "constraints_explanation": "Requires investment and internal team to properly manage, maintain and secure EKS (compared to ECS, requires minimal additional management),", "icon": "aws/eks.svg"}, {"type": "AWS", "path": "RDS", "constraints": "avoid non-Aurora PostgreSQL", "constraints_explanation": "Inefficient and more expensive compared to Aurora PostgreSQL.", "start_group": "Storage", "icon": "aws/rds.svg"}];
+    const array = [{"type": "AWS", "path": "EC2", "constraints": "avoid any EC2 usage", "constraints_explanation": "EC2 provides generic virtual machines that require a significant level of low-level configuration and management by the team using it. In addition, using EC2 can lead to a considerable diversity of OS and other basic infrastructural layers, which, compared to containerized applications, can reduce portability and increase the complexity of our technology landscape. Always containerize your loads or implement them as serverless functions.", "start_group": "Compute", "icon": "aws/ec2.svg"}, {"type": "AWS", "path": "EKS", "constraints": "avoid Managed Kubernetes", "constraints_explanation": "Requires investment and internal team to properly manage, maintain and secure EKS (compared to ECS, requires minimal additional management),", "icon": "aws/eks.svg"}, {"type": "AWS", "path": "RDS", "constraints": "avoid non-Aurora PostgreSQL", "constraints_explanation": "Inefficient and more expensive compared to Aurora PostgreSQL.", "start_group": "Storage", "icon": "aws/rds.svg"}];
 
-    var appendObject = document.body;
+    let appendObject = document.body;
 
     array.forEach(function (app) {
         if (app.start_group) {
-            var groupDiv = document.createElement('div');
-            var title = document.createElement('div');
+            const groupDiv = document.createElement('div');
+            const title = document.createElement('div');
             title.innerHTML = app.start_group;
             title.classList.add('group-title');
             groupDiv.appendChild(title);
@@ -159,9 +158,9 @@
             document.body.append(groupDiv);
             appendObject = groupDiv
         }
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         appendObject.appendChild(div);
-        var html = '<div class="app">';
+        let html = '<div class="app">';
         if (app.link) {
             html += '    <a target="_blank" href="' + app.link + '">\n';
         }

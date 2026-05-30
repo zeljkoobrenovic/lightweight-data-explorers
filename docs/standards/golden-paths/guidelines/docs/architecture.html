@@ -140,20 +140,19 @@
 
     </style>
     <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Ubuntu">
-    <link rel="stylesheet" target="_blank" href="https://fonts.googleapis.com/css?family=Lato">
 </head>
 <body>
 <script>
-    var array = [{"type": "General", "start_group": "General", "path": "Golden Paths Process", "link": "https://engineering.atspotify.com/2020/08/how-we-use-golden-paths-to-solve-fragmentation-in-our-software-ecosystem/", "icon": "golden.png"}, {"type": "General", "path": "RFC Process for System Design Reviews", "link": "https://blog.pragmaticengineer.com/scaling-engineering-teams-via-writing-things-down-rfcs/", "icon": "rfc.png"}, {"type": "General", "path": "Simple ADR/RFC Template", "link": "https://github.com/joelparkerhenderson/architecture-decision-record?tab=readme-ov-file#adr-example-templates", "icon": "decision.png"}, {"type": "General", "path": "Architecture Diagram Standards", "link": "https://c4model.com/", "icon": "document.png"}];
+    const array = [{"type": "General", "start_group": "General", "path": "Golden Paths Process", "link": "https://engineering.atspotify.com/2020/08/how-we-use-golden-paths-to-solve-fragmentation-in-our-software-ecosystem/", "icon": "golden.png"}, {"type": "General", "path": "RFC Process for System Design Reviews", "link": "https://blog.pragmaticengineer.com/scaling-engineering-teams-via-writing-things-down-rfcs/", "icon": "rfc.png"}, {"type": "General", "path": "Simple ADR/RFC Template", "link": "https://github.com/joelparkerhenderson/architecture-decision-record?tab=readme-ov-file#adr-example-templates", "icon": "decision.png"}, {"type": "General", "path": "Architecture Diagram Standards", "link": "https://c4model.com/", "icon": "document.png"}];
 
-    var appendObject = document.body;
+    let appendObject = document.body;
 
     let prev_group = '';
     array.forEach(function (app) {
         if (app.start_group && app.start_group != prev_group) {
             prev_group = app.start_group;
-            var groupDiv = document.createElement('div');
-            var title = document.createElement('div');
+            const groupDiv = document.createElement('div');
+            const title = document.createElement('div');
             title.innerHTML = app.start_group;
             title.classList.add('group-title');
             groupDiv.appendChild(title);
@@ -161,9 +160,9 @@
             document.body.append(groupDiv);
             appendObject = groupDiv
         }
-        var div = document.createElement('div');
+        const div = document.createElement('div');
         appendObject.appendChild(div);
-        var html = '<div class="app">';
+        let html = '<div class="app">';
         if (app.link) {
             html += '    <a target="_blank" href="' + app.link + '">\n';
         }

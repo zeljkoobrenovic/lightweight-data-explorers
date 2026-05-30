@@ -8,7 +8,7 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-CONFIG_DIR = ROOT_DIR / "_data" / "data" / "gcp"
+CONFIG_DIR = ROOT_DIR / "_config" / "data" / "gcp"
 TEMPLATES_DIR = ROOT_DIR / "_templates" / "data-explorers" / "gcp"
 OUTPUT_DIR = ROOT_DIR / "docs" / "data-explorers" / "gcp"
 ICON_SOURCE_DIR = CONFIG_DIR / "icons" / "logos"

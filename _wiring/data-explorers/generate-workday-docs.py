@@ -1,12 +1,13 @@
 from __future__ import annotations
 
+import datetime
 import json
 import shutil
 from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-CONFIG_FILE = ROOT_DIR / "_data" / "data" / "workday" / "workday.json"
+CONFIG_FILE = ROOT_DIR / "_config" / "data" / "workday" / "workday.json"
 TEMPLATES_DIR = ROOT_DIR / "_templates" / "data-explorers" / "workday"
 OUTPUT_DIR = ROOT_DIR / "docs" / "data-explorers" / "workday"
 ICON_SOURCE_DIR = TEMPLATES_DIR / "icons"
@@ -27,7 +28,10 @@ def load_workday_records() -> list[dict]:
 
 def render_template(template_name: str, destination_name: str, records: list[dict]) -> None:
     template = (TEMPLATES_DIR / template_name).read_text(encoding="utf-8")
-    content = template.replace("${data}", json.dumps(records))
+    content = (
+        template.replace("${data}", json.dumps(records))
+        .replace("${date}", datetime.date.today().strftime("%Y-%m-%d"))
+    )
     (OUTPUT_DIR / destination_name).write_text(content, encoding="utf-8")
 
 

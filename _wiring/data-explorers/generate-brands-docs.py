@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-CONFIG_DIR = ROOT_DIR / "_data" / "data" / "brands"
+CONFIG_DIR = ROOT_DIR / "_config" / "data" / "brands"
 TEMPLATES_DIR = ROOT_DIR / "_templates" / "data-explorers" / "brands"
 OUTPUT_DIR = ROOT_DIR / "docs" / "data-explorers" / "brands"
 DATA_FILE = CONFIG_DIR / "data" / "brands.json"

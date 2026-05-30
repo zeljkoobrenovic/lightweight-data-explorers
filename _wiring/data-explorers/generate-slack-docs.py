@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
-CONFIG_DIR = ROOT_DIR / "_data" / "data" / "slack"
+CONFIG_DIR = ROOT_DIR / "_config" / "data" / "slack"
 TEMPLATES_DIR = ROOT_DIR / "_templates" / "data-explorers" / "slack"
 OUTPUT_DIR = ROOT_DIR / "docs" / "data-explorers" / "slack"
 DATA_FILE = CONFIG_DIR / "data" / "slack.json"
