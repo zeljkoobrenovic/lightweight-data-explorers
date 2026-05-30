@@ -2,121 +2,202 @@
 
 ## Project
 
-This repository contains **Spec-Driven Product Architecture**, a toolset for modeling product strategy in a structured, implementation-aware way.
+This repository contains **Lightweight Data Explorers**, a collection of small static dashboards and reference pages generated from JSON/CSV configuration and simple HTML templates.
 
-The core idea is to describe product strategy from a customer-centric perspective and connect it to:
+The project is intentionally minimal:
 
-- customer groups and jobs to be done
-- value propositions and outcomes
-- KPI pyramids and north-star metrics
-- roadmap horizons and milestones
-- product delivery modes
-- product bricks, the implementation-facing units of product development
-- supporting evidence, documents, and architecture references
+- source data lives in `_config/`
+- reusable page templates live in `_templates/`
+- Python wiring scripts combine data and templates
+- generated static output is written to `docs/`
 
-In practice, this repository turns that model into a static documentation website.
+The result is a publishable static site for lightweight dashboards, controls, standards, and data explorers. It is not a product architecture modeling repository.
 
 ## Architecture Summary
 
-The project generates a static website from JSON configuration and simple HTML templates.
+The repository generates standalone HTML pages from local configuration.
 
-- Authoring format: JSON
-- Rendering format: standalone HTML files
+- Authoring formats: JSON and CSV
+- Rendering format: static HTML
 - Frontend stack: HTML, CSS, vanilla JavaScript
-- JavaScript libraries: none
-- Output style: self-contained HTML pages with embedded data
+- Python role: file generation, JSON/CSV parsing, asset copying, and template interpolation
+- JavaScript dependencies: none
+- Build tooling: none
+- Output style: self-contained generated pages under `docs/`
 
-All generated HTML files are intended to be self-contained and easy to publish as static assets.
+Pages generally embed their data directly into `<script>` blocks. Avoid designs that require a server runtime, bundler, package manager, or shared JavaScript framework.
 
 ## Repository Structure
 
 - `_config/`
-  - Source-of-truth data for product domains, product bricks, customers, delivery/product definitions, targets, documents, and roadmap data.
+  - Source-of-truth data and local assets.
+  - Main areas:
+    - `_config/data/` for data explorer inputs.
+    - `_config/controls/` for control catalogs and control icons.
+    - `_config/standards/` for standards, rituals, checklists, principles, and job architecture data.
+    - `_config/start/apps.json` for the start-page launcher.
 - `_templates/`
-  - HTML templates used to generate the static site.
+  - HTML templates, common template imports, and template-owned assets.
+  - Main areas:
+    - `_templates/data-explorers/`
+    - `_templates/controls/`
+    - `_templates/standards/`
+    - `_templates/scorecard/`
+    - `_templates/start/`
+    - `_templates/_imports/` for shared snippets such as tabs and breadcrumbs.
 - `_wiring/`
-  - Python generator scripts that wire `_config/...` and `_templates/...` into `docs/...`.
-- `_skills/`
-  - Repo-local Codex skill guidance for cross-cutting modeling workflows that span source data, generators, templates, and generated documentation.
+  - Python generator scripts.
+  - Scripts read `_config/**` and `_templates/**`, then write generated files to `docs/**`.
 - `docs/`
   - Generated static website output.
-- `_prompts/`
-  - Prompt assets used to create or extend strategic/customer JSON models.
+  - Treat this as generated unless the user explicitly asks for a direct patch.
 
-## Key Modeling Areas
+## Generated Areas
 
-### 1. Product domains
+### Data explorers
 
-`_wiring/product-domains/run.sh` defines the set of modeled domains and invokes the product-domain generators with explicit domain parameters.
+Data explorer generators live in `_wiring/data-explorers/`.
 
-Each domain typically contains:
+Current explorer families include:
 
-- `product/customers.json`
-  - Customer groups, personas, JTBD, KPI pyramids, and product strategy horizons.
-- `product/delivery.json`
-  - Product delivery definition, channels, APIs, events, MVP scope, and capability mappings.
-- `product-bricks/product-bricks.json`
-  - The catalog of product bricks, the reusable implementation-facing building blocks.
-- `product-bricks/product-capability.json`
-  - The catalog of outcome-based product capabilities composed from one or more product bricks and/or external systems.
-- `product-bricks/targets.json`
-  - Release targets and planning overlays.
-- `product-bricks/documents.json`
-  - Discussions, notes, and evidence references.
-- `product-bricks/roadmap/roadmap.json`
-  - Roadmap effort and timing data.
+- AWS usage and cost explorer
+- GCP usage and cost explorer
+- brand landscape explorer
+- budget explorer
+- company history explorer
+- incidents explorer
+- business scorecard
+- Slack activity explorer
+- Workday people explorer
 
-### 2. Product bricks
+Typical source layout:
 
-Product bricks are the implementation-facing units that connect strategy to execution. They are the bridge between:
+- `_config/data/<explorer>/data/*.json`
+- `_config/data/<explorer>/data/*.csv`
+- `_config/data/<explorer>/icons/`
+- `_config/data/<explorer>/assets/`
+- `_config/data/<explorer>/logos/`
 
-- customer and business needs
-- roadmap and investment choices
-- concrete systems, services, APIs, and delivery work
-- architecture and evidence
+Typical output layout:
 
-### 3. Static site generation
+- `docs/data-explorers/<explorer>/index.html`
+- copied assets under the corresponding generated output folder.
 
-Generation scripts live under `_wiring/`:
+### Controls
 
-- `generate-customers-docs.py`
-- `generate-products-docs.py`
-- `generate-delivery-docs.py`
-- `generate-objectives-docs.py`
-- `generate-start-docs.py`
-- `generate-teams-docs.py`
-- `generate-product-bricks-docs.py`
+Control generation is handled by `_wiring/controls/generate-controls-docs.py`.
 
-These scripts read from `_config/...` and `_templates/...` and write generated pages into `docs/...`.
+Inputs:
+
+- `_config/controls/security_controls.json`
+- `_config/controls/management_controls.json`
+- `_config/controls/operational_controls.json`
+- `_config/controls/engineering_controls.json`
+- `_config/controls/icons/`
+- `_templates/controls/`
+
+Outputs:
+
+- `docs/controls/security-controls/`
+- `docs/controls/management-controls/`
+- `docs/controls/operational-controls/`
+- `docs/controls/engineering-controls/`
+
+### Standards
+
+Standards generators live in `_wiring/standards/`.
+
+Current standards areas include:
+
+- golden paths
+- job architecture
+- rituals
+- checklists
+- principles
+
+Inputs are under `_config/standards/**` and `_templates/standards/**`, with some older principles templates and data still generated under `docs/standards/principles/`.
+
+### Start page
+
+The start page is generated by `_wiring/generate-start-docs.py`.
+
+Inputs:
+
+- `_config/start/apps.json`
+- `_templates/start/index.html`
+- `_templates/start/icons/`
+
+Output:
+
+- `docs/start/index.html`
+- `docs/start/icons/`
+
+The start page is the launcher for controls, standards, and data explorers. Keep its links aligned with generated output locations.
 
 ## Working Rules For Agents
 
 - Treat `_config/**` and `_templates/**` as the primary editable sources.
-- Treat `_skills/**` as repo-local agent guidance, not product-domain source data.
-- Treat `docs/**` as generated output unless the user explicitly asks for a direct patch there.
-- Preserve the repository's no-framework approach. Do not introduce React, build tooling, npm dependencies, or external JS libraries unless explicitly requested.
-- Keep generated pages self-contained. Avoid solutions that depend on shared runtime infrastructure or client-side package bundling.
-- Prefer extending the existing JSON schemas and HTML template patterns instead of inventing a parallel model.
-- Keep all ID values in `_config/**` lowercase, including `id`, `*Id`, and `*Ids` fields.
-- Keep naming aligned with the domain language already used in the repository: customers, product strategy, delivery, product bricks, targets, roadmap, evidence, documents.
+- Treat `docs/**` as generated output unless direct editing is explicitly requested.
+- When changing a generator, run that generator and include the generated output when appropriate.
+- When changing shared paths or conventions, run all affected generators.
+- Preserve the no-framework approach. Do not introduce React, npm, bundlers, external JavaScript libraries, or server-side runtime requirements unless the user explicitly asks.
+- Keep pages static and easy to publish as plain files.
+- Prefer extending existing JSON/CSV shapes and template replacement patterns over introducing a parallel data model.
+- Keep generator scripts deterministic: read local input, write predictable output, and copy assets from declared source folders.
+- Avoid leaving stale generated files behind. If a generator writes a directory whose contents mirror current source data, clean or reconcile that output directory before writing new pages.
+- Avoid committing or preserving Python `__pycache__` artifacts.
 
 ## Editing Guidance
 
-- If the user asks to change strategic content, start in `_config/product-domains/**`.
-- If the user asks to change presentation or navigation, start in `_templates/**`.
-- If the user asks to regenerate the website, run the relevant Python generators from `_wiring/**`.
-- Do not blindly overwrite generated `docs/` content if the worktree is dirty; inspect current changes first.
-- Some product modeling files appear to be evolving from `products.json` to `delivery.json`. Before regenerating product pages, verify the current generator expects the same source file names present in the domain folder.
+- For data/content changes, start in `_config/**`.
+- For presentation changes, start in `_templates/**`.
+- For generation behavior, start in `_wiring/**`.
+- For launcher/navigation changes, update `_config/start/apps.json`, then run `_wiring/generate-start-docs.py`.
+- For data explorer path changes, update both the relevant generator and any start-page links that point to that output.
+- Do not blindly overwrite generated `docs/**` in a dirty worktree. Inspect current changes first and avoid reverting unrelated user work.
+- Prefer `pathlib.Path` in Python generators unless the surrounding file already uses `os.path`.
+- Use UTF-8 when reading and writing generated text files.
+
+## Validation
+
+Useful checks:
+
+```bash
+python3 -B -m py_compile <script.py>
+python3 <script.py>
+```
+
+To check every wiring script, run each Python file under `_wiring/` from the repository root. The current script set is:
+
+- `_wiring/controls/generate-controls-docs.py`
+- `_wiring/data-explorers/generate-aws-docs.py`
+- `_wiring/data-explorers/generate-brands-docs.py`
+- `_wiring/data-explorers/generate-budget-docs.py`
+- `_wiring/data-explorers/generate-gcp-docs.py`
+- `_wiring/data-explorers/generate-history-docs.py`
+- `_wiring/data-explorers/generate-incidents-docs.py`
+- `_wiring/data-explorers/generate-scorecard-docs.py`
+- `_wiring/data-explorers/generate-slack-docs.py`
+- `_wiring/data-explorers/generate-workday-docs.py`
+- `_wiring/generate-start-docs.py`
+- `_wiring/standards/checklists/generate-docs.py`
+- `_wiring/standards/generate-golden-paths-docs.py`
+- `_wiring/standards/generate-job-architecture-docs.py`
+- `_wiring/standards/generate-rituals-docs.py`
+- `_wiring/standards/principles/generate-docs.py`
+
+When checking generated HTML for unresolved template placeholders, remember that many generated pages use JavaScript template literals such as `${value}`. Search for specific unresolved placeholders like `${date}`, `${data}`, `${source_link}`, or `${page_title}` rather than treating every `${...}` as an error.
 
 ## Practical Mental Model
 
-When working in this repo, think in this order:
+Work in this order:
 
-1. customer value and desired outcomes
-2. KPIs and strategic horizons
-3. product delivery structure
-4. product bricks/capabilities
-5. implementation and architectural evidence
-6. generated static documentation
+1. Identify the generated page or dashboard.
+2. Find its source data in `_config/**`.
+3. Find its template in `_templates/**`.
+4. Find its generator in `_wiring/**`.
+5. Make the smallest source/template/generator change that fits the existing pattern.
+6. Regenerate the affected `docs/**` output.
+7. Verify the generator runs and the generated page has no unresolved real placeholders.
 
-That sequence matches the intent of Spec-Driven Product Architecture: strategy should remain grounded in actual product building blocks and implementation reality.
+This repository is about lightweight, static, file-based dashboards. Keep changes simple, local, reproducible, and publishable without extra infrastructure.
