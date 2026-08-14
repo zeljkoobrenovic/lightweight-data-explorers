@@ -4,6 +4,8 @@ Lightweight Data Explorers is a static-site toolkit for small dashboards, data e
 
 The repository uses local JSON/CSV files plus simple HTML templates. Python scripts wire those inputs into standalone HTML pages under `docs/`. There is no frontend framework, no npm build, and no server-side runtime requirement.
 
+Preview generated docs here: [zeljkoobrenovic.github.io/lightweight-data-explorers](https://zeljkoobrenovic.github.io/lightweight-data-explorers/)
+
 ## What Is Included
 
 Current generated areas include:
