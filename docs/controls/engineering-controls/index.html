@@ -4,203 +4,510 @@
     <meta charset="utf-8"/>
     <title>Compliance Dashboard</title>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
     <style>
+        :root {
+            --ink: #101828;
+            --muted: #667085;
+            --faint: #98a2b3;
+            --bg: #fafbfc;
+            --surface: #ffffff;
+            --border: #e4e7ec;
+            --accent: #4f46e5;
+            --accent-soft: #eef2ff;
+            --red: #dc2626;
+            --red-soft: #fef2f2;
+            --yellow: #d97706;
+            --yellow-soft: #fffbeb;
+            --green: #16a34a;
+            --green-soft: #f0fdf4;
+            --focus-flag: #7c3aed;
+            --focus-flag-soft: #f5f3ff;
+            --radius: 12px;
+            --shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
+        }
+
+        * { box-sizing: border-box; }
+
         body {
-            font-family: Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
-            margin: 40px;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: 15px;
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3 {
-            margin-bottom: 0.3rem;
+        .page {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 32px 24px 64px;
         }
 
-        .muted {
-            color: #666;
+        h1, h2, h3, .score-value {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
         }
 
+        .muted { color: var(--muted); }
+
+        /* ---------- Hero ---------- */
         .hero {
             display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            margin-bottom: 12px;
-            margin-left: 20px;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 28px;
         }
 
         .hero-logo {
-            width: 136px;
-            height: 136px;
+            width: 72px;
+            height: 72px;
             object-fit: contain;
+            border-radius: 16px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 8px;
+            flex-shrink: 0;
+        }
+
+        .eyebrow {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 2px;
         }
 
         .hero-title {
-            font-size: 330%;
-            margin-top: 0;
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 0 0 8px;
+            line-height: 1.2;
         }
 
-        .hero-description {
-            color: #666;
-            line-height: 1.45;
-            max-width: 980px;
+        .meta-chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
         }
 
-        .summary {
-            margin: 30px 0 30px 6px;
+        .meta-chip {
+            font-size: 12px;
+            color: var(--muted);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 3px 10px;
+            white-space: nowrap;
+            max-width: 420px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
-        .card {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 10px 12px;
-            min-width: 100px;
+        /* ---------- Scoreboard ---------- */
+        .scoreboard {
+            display: flex;
+            align-items: stretch;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 24px;
+        }
+
+        .maturity-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px 22px;
+            min-width: 280px;
+            flex: 1 1 300px;
+        }
+
+        .score-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .score-value {
+            font-size: 34px;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -0.02em;
+        }
+
+        .score-denom {
+            font-size: 15px;
+            color: var(--faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .band-label {
+            font-size: 13px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+
+        .dist-bar {
+            display: flex;
+            height: 8px;
+            border-radius: 999px;
+            overflow: hidden;
+            background: var(--border);
+        }
+
+        .dist-bar .seg-red { background: var(--red); }
+        .dist-bar .seg-yellow { background: #f59e0b; }
+        .dist-bar .seg-green { background: var(--green); }
+
+        /* ---------- Filter chips ---------- */
+        .filters {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            align-content: center;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--ink);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            padding: 8px 14px;
             cursor: pointer;
-            transition: box-shadow 0.15s, border-color 0.15s;
-            display: inline-block;
-            text-align: center;
+            transition: border-color 0.15s, background 0.15s, box-shadow 0.15s;
         }
 
-        .card:hover {
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        .chip:hover { border-color: var(--faint); }
+
+        .chip:focus-visible,
+        .search-input:focus-visible,
+        .btn:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
         }
 
-        .card.active {
-            border-width: 2px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        .chip .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            flex-shrink: 0;
         }
 
-        .card.active.red { border-color: crimson; }
-        .card.active.yellow { border-color: orange; }
-        .card.active.green { border-color: darkgreen; }
-        .card.active.focus { border-color: #f59e0b; }
-
-        .card.focus { background: #fffbeb; margin-right: 24px; }
-
-        .card.maturity { margin-left: 24px; }
-
-        .red { background: #fde8e8; }
-        .yellow { background: #fff7d6; }
-        .green { background: #e8f7ea; }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 12px;
+        .chip .count {
+            font-variant-numeric: tabular-nums;
+            color: var(--muted);
         }
 
-        th, td {
-            padding: 8px;
-            vertical-align: top;
-            text-align: left;
-        }
+        .chip.red .dot { background: var(--red); }
+        .chip.yellow .dot { background: #f59e0b; }
+        .chip.green .dot { background: var(--green); }
+        .chip.focus .dot { background: var(--focus-flag); }
 
-        .controls {
-            margin: 44px 0 24px 6px;
+        .chip.active { border-color: currentColor; }
+        .chip.red.active { background: var(--red-soft); color: var(--red); }
+        .chip.yellow.active { background: var(--yellow-soft); color: var(--yellow); }
+        .chip.green.active { background: var(--green-soft); color: var(--green); }
+        .chip.focus.active { background: var(--focus-flag-soft); color: var(--focus-flag); }
+        .chip.active .count { color: inherit; }
+
+        /* ---------- Toolbar ---------- */
+        .toolbar {
+            position: sticky;
+            top: 0;
+            z-index: 10;
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
+            padding: 12px 0;
+            margin-bottom: 20px;
+            background: linear-gradient(var(--bg) 85%, rgba(250, 251, 252, 0));
         }
 
-        input[type="text"] {
-            padding: 8px 12px;
-            font-size: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            width: 400px;
+        .search-wrap {
+            position: relative;
+            flex: 1 1 260px;
+            max-width: 440px;
         }
 
-        input[type="text"]:focus {
+        .search-icon {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--faint);
+            pointer-events: none;
+        }
+
+        .search-input {
+            width: 100%;
+            font: inherit;
+            font-size: 14px;
+            padding: 9px 36px 9px 36px;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+            color: var(--ink);
+            box-shadow: var(--shadow);
+        }
+
+        .search-input::placeholder { color: var(--faint); }
+
+        .search-input:focus {
             outline: none;
-            border-color: #1d4ed8;
-            box-shadow: 0 0 0 2px rgba(29, 78, 216, 0.15);
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.12);
+        }
+
+        .search-hint {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 11px;
+            color: var(--faint);
+            border: 1px solid var(--border);
+            border-radius: 5px;
+            padding: 1px 6px;
+            background: var(--bg);
+            pointer-events: none;
         }
 
         .filter-count {
-            color: #666;
-            font-size: 14px;
+            color: var(--muted);
+            font-size: 13px;
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
         }
 
-        .control-link {
-            color: #1d4ed8;
-            text-decoration: none;
+        .btn {
+            font: inherit;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 10px;
+            border-radius: 8px;
         }
 
-        .control-link:hover {
-            text-decoration: underline;
-        }
+        .btn:hover { background: var(--accent-soft); }
+        .btn[hidden] { display: none; }
 
-        a {
-            word-break: break-all;
+        /* ---------- Domain cards ---------- */
+        .domains {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 16px;
+            align-items: start;
         }
 
         .domain-card {
-            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-            display: inline-block;
-            padding: 16px;
-            border: 1px solid grey;
-            margin: 4px 4px 34px;
-            vertical-align: top;
-            border-radius: 10px;
-            width: calc(33% - 40px);
-            min-width: 280px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 18px 20px 10px;
         }
 
-        @media (max-width: 800px) {
-            .domain-card {
-                width: 100%;
-                min-width: unset;
-            }
-        }
-
-        details summary {
+        .domain-card summary {
             cursor: pointer;
-            margin-bottom: 6px;
-            font-size: 130%;
+            list-style: none;
         }
 
-        .in-focus {
-            background: #fffbeb;
-            border: 1px dashed darkred;
+        .domain-card summary::-webkit-details-marker { display: none; }
+
+        .domain-head {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        .domain-name {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .domain-name .caret {
+            display: inline-block;
+            color: var(--faint);
+            font-size: 11px;
+            margin-right: 6px;
+            transition: transform 0.15s;
+        }
+
+        details[open] .domain-name .caret { transform: rotate(90deg); }
+
+        .domain-score {
+            font-size: 12px;
+            font-weight: 600;
+            font-variant-numeric: tabular-nums;
+            padding: 3px 9px;
+            border-radius: 999px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .domain-score.red { background: var(--red-soft); color: var(--red); }
+        .domain-score.yellow { background: var(--yellow-soft); color: var(--yellow); }
+        .domain-score.green { background: var(--green-soft); color: var(--green); }
+
+        .domain-desc {
+            color: var(--muted);
+            font-size: 13px;
+            margin: 6px 0 10px;
+        }
+
+        .domain-card .dist-bar { height: 5px; margin-bottom: 4px; }
+
+        /* ---------- Control rows ---------- */
+        .control-list {
+            margin: 6px 0 8px;
+            padding: 0;
+            list-style: none;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 10px;
+            padding: 10px 8px;
+            border-radius: 8px;
+            border-top: 1px solid var(--border);
+        }
+
+        .control-row:hover { background: var(--bg); }
+
+        .control-row .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+
+        .dot.red { background: var(--red); }
+        .dot.yellow { background: #f59e0b; }
+        .dot.green { background: var(--green); }
+
+        .control-link {
+            color: var(--ink);
+            font-weight: 500;
+            text-decoration: none;
+        }
+
+        .control-link:hover { color: var(--accent); text-decoration: underline; }
+
+        .control-desc {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 1px;
+        }
+
+        .control-meta {
+            color: var(--faint);
+            font-size: 12px;
+            margin-top: 3px;
         }
 
         .focus-badge {
             display: inline-block;
             font-size: 10px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            background: #f59e0b;
-            color: white;
-            padding: 1px 6px;
-            border-radius: 4px;
-            margin-left: 6px;
-            vertical-align: middle;
+            letter-spacing: 0.06em;
+            background: var(--focus-flag-soft);
+            color: var(--focus-flag);
+            padding: 2px 7px;
+            border-radius: 999px;
+            margin-left: 8px;
+            vertical-align: 1px;
         }
 
-        .status-dot {
-            height: 42px;
-            width: 42px;
-            border-radius: 10px;
+        /* ---------- Empty state / footer ---------- */
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 56px 20px;
+            background: var(--surface);
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            color: var(--muted);
+        }
+
+        .empty-state .btn { margin-top: 8px; }
+
+        .page-footer {
+            margin-top: 40px;
+            color: var(--faint);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        @media (max-width: 640px) {
+            .page { padding: 20px 14px 48px; }
+            .hero { gap: 14px; }
+            .hero-logo { width: 56px; height: 56px; }
+            .hero-title { font-size: 22px; }
+            .domains { grid-template-columns: 1fr; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * { transition: none !important; }
         }
     </style>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
 </head>
 <body>
-<div class="hero">
-    <img class="hero-logo" id="heroLogo" src="icons/logo.png" alt="Compliance">
-    <div>
-        <h1 id="heroTitle" class="hero-title">Compliance Dashboard</h1>
-        <div id="heroDescription" class="hero-description"></div>
+<div class="page">
+    <header class="hero">
+        <img class="hero-logo" id="heroLogo" src="icons/logo.png" alt="">
+        <div>
+            <div class="eyebrow">Controls Dashboard</div>
+            <h1 id="heroTitle" class="hero-title">Compliance Dashboard</h1>
+            <div id="heroMeta" class="meta-chips"></div>
+        </div>
+    </header>
+
+    <section class="scoreboard" aria-label="Overall maturity and filters">
+        <div class="maturity-card">
+            <div class="score-row">
+                <span class="score-value" id="scoreValue">–</span>
+                <span class="score-denom">/ 3.00 weighted maturity</span>
+            </div>
+            <div class="band-label" id="bandLabel"></div>
+            <div class="dist-bar" id="overallBar" title="Distribution of control statuses"></div>
+        </div>
+        <div class="filters" id="filters" role="group" aria-label="Filter controls by status"></div>
+    </section>
+
+    <div class="toolbar">
+        <div class="search-wrap">
+            <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+            <input type="search" class="search-input" id="searchBox" placeholder="Search controls, domains, owners…" aria-label="Search controls"/>
+            <span class="search-hint" id="searchHint">/</span>
+        </div>
+        <span id="filterCount" class="filter-count" aria-live="polite"></span>
+        <button class="btn" id="clearBtn" hidden onclick="clearFilters()">Clear filters</button>
     </div>
-</div>
 
-<div style="margin: 20px">
-    <div class="summary" id="summary"></div>
+    <main id="domains" class="domains"></main>
 
-    <div class="controls">
-        <input type="text" id="searchBox" placeholder="Search controls, domains, owners..."/>
-        <span id="filterCount" class="filter-count"></span>
-    </div>
-
-    <div id="domains"></div>
+    <footer class="page-footer">Generated on 2026-08-23</footer>
 </div>
 
 <script>
@@ -208,7 +515,7 @@
     let activeStatus = '';
     let filterFocus = false;
 
-    function escapeHtml(value) {
+    function esc(value) {
         return String(value ?? '')
             .replaceAll('&', '&amp;')
             .replaceAll('<', '&lt;')
@@ -217,20 +524,18 @@
             .replaceAll("'", '&#39;');
     }
 
-    function formatMetadataDescription(metadata) {
-        if (!metadata) return "";
-        const parts = [];
-        if (metadata.version) parts.push(`Version ${metadata.version}`);
-        if (metadata.regions && metadata.regions.length) parts.push(`Regions: ${metadata.regions.join(", ")}`);
-        if (metadata.primary_regulatory_focus && metadata.primary_regulatory_focus.length) parts.push(`Focus: ${metadata.primary_regulatory_focus.join(", ")}`);
-        if (metadata.intended_use && metadata.intended_use.length) parts.push(`Use: ${metadata.intended_use.join(" | ")}`);
+    function metadataChips(metadata) {
+        if (!metadata) return [];
+        const chips = [];
+        if (metadata.version) chips.push('v' + metadata.version);
+        if (metadata.regions && metadata.regions.length) chips.push(metadata.regions.join(', '));
+        (metadata.primary_regulatory_focus || []).forEach(f => chips.push(f));
         if (metadata.source && metadata.source.title) {
-            const sourceLabel = metadata.source.author
-                ? `${metadata.source.title} by ${metadata.source.author}`
-                : metadata.source.title;
-            parts.push(`Source: ${sourceLabel}`);
+            chips.push(metadata.source.author
+                ? metadata.source.title + ' — ' + metadata.source.author
+                : metadata.source.title);
         }
-        return parts.join(" • ");
+        return chips;
     }
 
     function safeScore(control) {
@@ -261,130 +566,177 @@
     }
 
     function maturityBand(score) {
-        const bands = currentData.scoring_model.overall_maturity_bands || [];
+        const bands = (currentData.scoring_model && currentData.scoring_model.overall_maturity_bands) || [];
         for (const b of bands) {
             if (score >= b.min && score <= b.max) return b;
         }
         return null;
     }
 
-    function countStatuses() {
-        const counts = {red: 0, yellow: 0, green: 0, focus: 0};
-        currentData.domains.forEach(d => d.controls.forEach(c => {
+    function scoreClass(score) {
+        const band = maturityBand(score);
+        if (band && band.status) return band.status;
+        return score < 1.6 ? 'red' : score < 2.3 ? 'yellow' : 'green';
+    }
+
+    function countStatuses(controls) {
+        const counts = {red: 0, yellow: 0, green: 0, focus: 0, total: 0};
+        controls.forEach(c => {
             counts[c.status] = (counts[c.status] || 0) + 1;
             if (c.inFocus) counts.focus++;
-        }));
+            counts.total++;
+        });
         return counts;
+    }
+
+    function allControls() {
+        return currentData.domains.flatMap(d => d.controls);
+    }
+
+    function distBarHtml(counts) {
+        if (!counts.total) return '';
+        return ['red', 'yellow', 'green']
+            .filter(s => counts[s] > 0)
+            .map(s => '<div class="seg-' + s + '" style="flex:' + counts[s] + '" title="' + counts[s] + ' ' + s + '"></div>')
+            .join('');
     }
 
     function toggleStatus(status) {
         filterFocus = false;
         activeStatus = activeStatus === status ? '' : status;
-        renderSummary();
-        renderDomains();
+        render();
     }
 
     function toggleFocus() {
         filterFocus = !filterFocus;
         activeStatus = '';
-        renderSummary();
-        renderDomains();
+        render();
     }
 
-    function renderSummary() {
+    function clearFilters() {
+        activeStatus = '';
+        filterFocus = false;
+        document.getElementById('searchBox').value = '';
+        render();
+    }
+
+    function renderScoreboard() {
         const score = overallMaturity();
         const band = maturityBand(score);
-        const counts = countStatuses();
-        document.getElementById("summary").innerHTML = `
-        <div class="card focus ${filterFocus ? 'active' : ''}" onclick="toggleFocus()">
-          <div style="font-size: 200%"><strong>${counts.focus}</strong></div>
-          <div>In Focus</div>
-        </div>
-        <div class="card red ${activeStatus === 'red' ? 'active' : ''}" onclick="toggleStatus('red')">
-          <div style="font-size: 200%"><strong>${counts.red}</strong></div>
-          <div>Red</div>
-        </div>
-        <div class="card yellow ${activeStatus === 'yellow' ? 'active' : ''}" onclick="toggleStatus('yellow')">
-          <div style="font-size: 200%"><strong>${counts.yellow}</strong></div>
-          <div>Yellow</div>
-        </div>
-        <div class="card green ${activeStatus === 'green' ? 'active' : ''}" onclick="toggleStatus('green')">
-          <div style="font-size: 200%"><strong>${counts.green}</strong></div>
-          <div>Green</div>
-        </div>
-        <div class="card maturity" onclick="toggleStatus('')">
-          <div style="font-size: 200%"><strong>${score.toFixed(2)} / 3.00</strong></div>
-          <div>Overall maturity is ${band ? band.label.toLowerCase() : "unknown"}</div>
-        </div>
-      `;
+        const counts = countStatuses(allControls());
+
+        document.getElementById('scoreValue').textContent = score.toFixed(2);
+        document.getElementById('bandLabel').textContent = band ? band.label : '';
+        document.getElementById('overallBar').innerHTML = distBarHtml(counts);
+
+        const chip = (cls, label, count, active, onclick) =>
+            '<button class="chip ' + cls + (active ? ' active' : '') + '" aria-pressed="' + active + '" onclick="' + onclick + '">' +
+            '<span class="dot"></span>' + label + '<span class="count">' + count + '</span></button>';
+
+        document.getElementById('filters').innerHTML =
+            chip('red', 'Red', counts.red, activeStatus === 'red', "toggleStatus('red')") +
+            chip('yellow', 'Yellow', counts.yellow, activeStatus === 'yellow', "toggleStatus('yellow')") +
+            chip('green', 'Green', counts.green, activeStatus === 'green', "toggleStatus('green')") +
+            (counts.focus ? chip('focus', 'In Focus', counts.focus, filterFocus, 'toggleFocus()') : '');
+    }
+
+    function controlMeta(c) {
+        const parts = [];
+        if (c.owner) parts.push(c.owner);
+        if (c.priority) parts.push(c.priority + ' priority');
+        if (c.target_date) parts.push('Target ' + c.target_date);
+        return parts.join(' · ');
     }
 
     function renderDomains() {
-        const q = document.getElementById("searchBox").value.trim().toLowerCase();
+        const q = document.getElementById('searchBox').value.trim().toLowerCase();
         let totalVisible = 0;
 
-        const html = currentData.domains.map(domain => {
-            const controls = domain.controls.filter(c => {
+        const html = currentData.domains.map(dom => {
+            const visible = dom.controls.filter(c => {
                 if (filterFocus && !c.inFocus) return false;
                 if (activeStatus && c.status !== activeStatus) return false;
                 if (q) {
-                    const blob = [domain.name, c.id, c.name, c.description, c.owner, c.notes].join(" ").toLowerCase();
+                    const blob = [dom.name, c.id, c.name, c.description, c.owner, c.priority, c.notes].join(' ').toLowerCase();
                     if (!blob.includes(q)) return false;
                 }
                 return true;
             });
 
-            if (!controls.length) return "";
-            totalVisible += controls.length;
+            if (!visible.length) return '';
+            totalVisible += visible.length;
 
-            const avg = weightedAverage(controls);
+            const avg = weightedAverage(dom.controls);
+            const counts = countStatuses(dom.controls);
+            const filtered = visible.length < dom.controls.length;
+
             return `
           <details open class="domain-card">
-            <summary><strong>${domain.name}</strong> <span class="muted" style="font-size: 70%">${avg.toFixed(2)} / 3.00</span></summary>
-            <div class="muted">${domain.description || ""}</div>
-            <div style="border-bottom: 1px dashed lightgrey; margin-top: 10px"></div>
-            <table>
-              <tbody>
-                ${controls.map(c => `
-                  <tr class="${c.inFocus ? 'in-focus' : ''}">
-                    <td style="width: 42px"><div class="status-dot ${c.status}"></div></td>
-                    <td>
-                      <div><strong><a class="control-link" href="landing_pages/${encodeURIComponent(c.id)}.html" target="_blank" rel="noopener noreferrer">${c.name}</a></strong>${c.inFocus ? '<span class="focus-badge">In Focus</span>' : ''}</div>
-                      <div class="muted">${c.description || ""}</div>
-                    </td>
-                  </tr>
-                `).join("")}
-              </tbody>
-            </table>
+            <summary>
+              <div class="domain-head">
+                <div class="domain-name"><span class="caret">▶</span>${esc(dom.name)}</div>
+                <span class="domain-score ${scoreClass(avg)}">${avg.toFixed(2)}</span>
+              </div>
+            </summary>
+            <div class="domain-desc">${esc(dom.description || '')}</div>
+            <div class="dist-bar">${distBarHtml(counts)}</div>
+            <ul class="control-list">
+              ${visible.map(c => `
+                <li class="control-row">
+                  <span class="dot ${esc(c.status)}" title="${esc(c.status)}"></span>
+                  <div>
+                    <a class="control-link" href="landing_pages/${encodeURIComponent(c.id)}.html">${esc(c.name)}</a>${c.inFocus ? '<span class="focus-badge">In Focus</span>' : ''}
+                    <div class="control-desc">${esc(c.description || '')}</div>
+                    ${controlMeta(c) ? '<div class="control-meta">' + esc(controlMeta(c)) + '</div>' : ''}
+                  </div>
+                </li>
+              `).join('')}
+            </ul>
+            ${filtered ? '<div class="control-meta" style="padding: 0 8px 8px">Showing ' + visible.length + ' of ' + dom.controls.length + ' controls in this domain</div>' : ''}
           </details>
         `;
-        }).join("");
+        }).join('');
 
-        document.getElementById("domains").innerHTML = html || "<p class='muted'>No controls match the current filters.</p>";
+        const hasFilter = Boolean(q || activeStatus || filterFocus);
+        document.getElementById('domains').innerHTML = html ||
+            '<div class="empty-state">No controls match the current filters.<br/><button class="btn" onclick="clearFilters()">Clear filters</button></div>';
 
-        const counts = countStatuses();
-        const total = counts.red + counts.yellow + counts.green;
-        const countEl = document.getElementById("filterCount");
-        countEl.textContent = (q || activeStatus || filterFocus)
+        const total = allControls().length;
+        document.getElementById('filterCount').textContent = hasFilter
             ? totalVisible + ' of ' + total + ' controls'
             : total + ' controls';
+        document.getElementById('clearBtn').hidden = !hasFilter;
+    }
+
+    function render() {
+        renderScoreboard();
+        renderDomains();
     }
 
     // Init
     const metadata = currentData.metadata || {};
-    const pageTitle = metadata.title || "Compliance Dashboard";
+    const pageTitle = metadata.title || 'Compliance Dashboard';
     document.title = pageTitle;
-    document.getElementById("heroTitle").textContent = pageTitle;
-    document.getElementById("heroDescription").innerHTML = escapeHtml(formatMetadataDescription(metadata));
+    document.getElementById('heroTitle').textContent = pageTitle;
+    document.getElementById('heroMeta').innerHTML =
+        metadataChips(metadata).map(c => '<span class="meta-chip">' + esc(c) + '</span>').join('');
     if (metadata.icon) {
-        const logo = document.getElementById("heroLogo");
+        const logo = document.getElementById('heroLogo');
         logo.onerror = function() { this.onerror = null; this.src = 'icons/logo.png'; };
         logo.src = 'icons/' + metadata.icon;
     }
-    renderSummary();
-    renderDomains();
+    render();
 
-    document.getElementById("searchBox").addEventListener("input", renderDomains);
+    const searchBox = document.getElementById('searchBox');
+    searchBox.addEventListener('input', renderDomains);
+    document.addEventListener('keydown', e => {
+        if (e.key === '/' && document.activeElement !== searchBox) {
+            e.preventDefault();
+            searchBox.focus();
+        } else if (e.key === 'Escape' && document.activeElement === searchBox) {
+            searchBox.blur();
+        }
+    });
 </script>
 </body>
 </html>

@@ -86,7 +86,7 @@
       ]
     },
     {
-      "tab": "Controls",
+      "tab": "Control Dashboards",
       "apps": [
         {
           "group": "security & compliance",
@@ -134,7 +134,7 @@
       ]
     },
     {
-      "tab": "Data",
+      "tab": "Data Explorers",
       "apps": [
         {
           "group": "show me the code",

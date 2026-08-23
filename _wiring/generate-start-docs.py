@@ -14,7 +14,7 @@ TEMPLATE_PATH = TEMPLATE_ROOT / "index.html"
 DOCS_ROOT = REPO_ROOT / "docs" / "start"
 
 DEFAULT_DOMAIN_NAME = "Data Explorers and Dashboards"
-DEFAULT_DOMAIN_DESCRIPTION = "A launcher for controls, standards, and data explorers."
+DEFAULT_DOMAIN_DESCRIPTION = "A launcher for controls, standards, and data explorers. Available free on <a href= 'https://github.com/zeljkoobrenovic/lightweight-data-explorers' target='_blank'>GitHub</a>."
 
 
 def copy_directory(source: Path, target: Path) -> None:

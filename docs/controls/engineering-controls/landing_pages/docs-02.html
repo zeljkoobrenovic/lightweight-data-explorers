@@ -3,203 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <title>Architecture API and Workflow Documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap">
     <style>
-        body {
-            font-family: Vollkorn, Ubuntu, Optima, Segoe, Segoe UI, Candara, Calibri, Arial, sans-serif;
-            margin: 48px;
-            color: #202124;
-            max-width: 1100px;
+        :root {
+            --ink: #101828;
+            --muted: #667085;
+            --faint: #98a2b3;
+            --bg: #fafbfc;
+            --surface: #ffffff;
+            --border: #e4e7ec;
+            --accent: #4f46e5;
+            --accent-soft: #eef2ff;
+            --red: #dc2626;
+            --red-soft: #fef2f2;
+            --yellow: #d97706;
+            --yellow-soft: #fffbeb;
+            --green: #16a34a;
+            --green-soft: #f0fdf4;
+            --focus-flag: #7c3aed;
+            --focus-flag-soft: #f5f3ff;
+            --radius: 12px;
+            --shadow: 0 1px 2px rgba(16, 24, 40, 0.05);
         }
 
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font-size: 15px;
+            line-height: 1.55;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 24px 24px 64px;
+        }
+
+        h1, h2 { font-family: 'Space Grotesk', 'Inter', sans-serif; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--muted);
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            margin-bottom: 20px;
+            padding: 6px 10px;
+            margin-left: -10px;
+            border-radius: 8px;
+        }
+
+        .back-link:hover { color: var(--accent); background: var(--accent-soft); }
+
+        .back-link:focus-visible, a:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        /* ---------- Hero ---------- */
         .hero {
             display: flex;
             align-items: flex-start;
-            gap: 14px;
-            margin-left: 10px;
-            margin-bottom: 16px;
+            gap: 20px;
+            margin-bottom: 24px;
         }
 
         .hero-logo {
-            width: 110px;
-            height: 110px;
+            width: 64px;
+            height: 64px;
             object-fit: contain;
+            border-radius: 14px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            padding: 7px;
+            flex-shrink: 0;
         }
 
         .eyebrow {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 999px;
-            background-color: white;
-            color: grey;
             font-size: 11px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            margin-bottom: 6px;
-            border: 1px solid grey;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            margin-bottom: 2px;
         }
 
         h1 {
-            font-size: 34px;
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.01em;
             line-height: 1.25;
-            margin: 0 0 8px 0;
+            margin: 0 0 10px;
         }
 
-        .meta {
-            color: #6b7280;
+        .badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
         }
 
-        .section {
-            padding-top: 18px;
+        .status-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: capitalize;
+            padding: 4px 12px;
+            border-radius: 999px;
+        }
+
+        .status-pill .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        .status-pill.red { background: var(--red-soft); color: var(--red); }
+        .status-pill.yellow { background: var(--yellow-soft); color: var(--yellow); }
+        .status-pill.green { background: var(--green-soft); color: var(--green); }
+
+        .focus-badge {
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--focus-flag-soft);
+            color: var(--focus-flag);
+            padding: 4px 10px;
+            border-radius: 999px;
+        }
+
+        .control-id {
+            font-size: 12px;
+            color: var(--faint);
+            font-variant-numeric: tabular-nums;
+        }
+
+        /* ---------- Cards & sections ---------- */
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 20px 24px;
+            margin-bottom: 16px;
         }
 
         .section-title {
-            font-size: 14px;
+            font-size: 11px;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #6b7280;
-            margin-bottom: 6px;
+            letter-spacing: 0.1em;
+            color: var(--faint);
+            margin-bottom: 10px;
         }
 
         .description {
-            font-size: 19px;
-            line-height: 1.55;
+            font-size: 16px;
+            line-height: 1.6;
         }
 
+        /* ---------- Snapshot ---------- */
         .stats {
-            display: flex;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 12px;
         }
 
         .stat {
-            min-width: 160px;
             padding: 12px 14px;
-            border: 1px solid #d1d5db;
-            border-radius: 8px;
-            background-color: #f8fafc;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
         }
 
         .stat-value {
-            font-size: 24px;
-            color: #1d4ed8;
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
         }
 
         .stat-label {
-            color: #6b7280;
-            font-size: 12px;
+            color: var(--muted);
+            font-size: 11px;
+            font-weight: 500;
             text-transform: uppercase;
             letter-spacing: 0.06em;
+            margin-top: 2px;
         }
 
+        /* ---------- Scoring criteria ---------- */
         .criteria-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 14px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 12px;
         }
 
         .criteria-card {
-            border: 3px solid #d1d5db;
+            border: 1px solid var(--border);
             border-radius: 10px;
-            padding: 14px;
-        }
-
-        .criteria-card.active {
-            border-color: black;
-        }
-
-        .criteria-card.inactive {
-            border-style: dashed;
-            opacity: 0.2;
-        }
-
-        .criteria-card h3 {
-            margin-top: 0;
-        }
-
-        .criteria-card.red h3 { color: #b91c1c; }
-        .criteria-card.yellow h3 { color: darkorange; }
-        .criteria-card.green h3 { color: #15803d; }
-
-        .evidence-item,
-        .detail-item {
-            margin-bottom: 8px;
-            line-height: 1.45;
-        }
-
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
             padding: 14px 16px;
-            transition: 0.3s;
-            font-size: 17px;
+            background: var(--bg);
         }
 
-        .tab button:hover {
-            background-color: #ddd;
+        .criteria-card .criteria-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            text-transform: capitalize;
+            margin-bottom: 6px;
         }
 
-        .tab button.active {
-            background-color: #ccc;
+        .criteria-card .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
         }
 
-        .tabcontent {
-            display: none;
-            padding: 16px;
-            border: 1px solid #ccc;
-            border-top: none;
+        .criteria-card.red .criteria-head { color: var(--red); }
+        .criteria-card.yellow .criteria-head { color: var(--yellow); }
+        .criteria-card.green .criteria-head { color: var(--green); }
+        .criteria-card.red .dot { background: var(--red); }
+        .criteria-card.yellow .dot { background: #f59e0b; }
+        .criteria-card.green .dot { background: var(--green); }
+
+        .criteria-card.active { background: var(--surface); }
+        .criteria-card.active.red { border-color: var(--red); }
+        .criteria-card.active.yellow { border-color: #f59e0b; }
+        .criteria-card.active.green { border-color: var(--green); }
+
+        .criteria-card.inactive { opacity: 0.65; }
+
+        .criteria-text {
+            font-size: 13px;
+            color: var(--muted);
+            line-height: 1.5;
         }
 
-        a {
-            color: #1d4ed8;
-            word-break: break-all;
+        .current-tag {
+            margin-left: auto;
+            font-size: 10px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 2px 8px;
+            border-radius: 999px;
+        }
+
+        /* ---------- Lists ---------- */
+        .item-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .item-list li {
+            position: relative;
+            padding: 7px 0 7px 22px;
+            border-top: 1px solid var(--border);
+        }
+
+        .item-list li:first-child { border-top: none; }
+
+        .item-list li::before {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 14px;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--faint);
+        }
+
+        a { color: var(--accent); overflow-wrap: anywhere; }
+
+        .empty-note { color: var(--faint); font-size: 13px; }
+
+        @media (max-width: 640px) {
+            .page { padding: 16px 14px 48px; }
+            .hero { gap: 14px; }
+            .hero-logo { width: 52px; height: 52px; }
+            h1 { font-size: 21px; }
+            .card { padding: 16px 18px; }
         }
     </style>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu">
 </head>
-<body onload="initTab()" onhashchange="initTab()">
-<div class="hero">
-    <img class="hero-logo" id="heroLogo" src="../icons/engineering.png" onerror="this.onerror=null;this.src='../icons/logo.png'" alt="Logo">
-    <div>
-        <div class="eyebrow">Compliance Control</div>
-        <h1 id="Title" style="font-size: 260%"></h1>
-        <div id="Meta" class="meta"></div>
-    </div>
-</div>
+<body>
+<div class="page">
+    <a class="back-link" href="../index.html">← Back to dashboard</a>
 
-<div style="margin: 16px;">
-    <div class="tab">
-        <button id="tab_control-tab" class="tablinks" onclick="openTab('control-tab')">Control</button>
-        <button id="tab_evidence-tab" class="tablinks" onclick="openTab('evidence-tab')">Evidence</button>
-    </div>
-    <div id="control-tab" class="tabcontent"></div>
-    <div id="evidence-tab" class="tabcontent"></div>
+    <header class="hero">
+        <img class="hero-logo" id="heroLogo" src="../icons/engineering.png" onerror="this.onerror=null;this.src='../icons/logo.png'" alt="">
+        <div>
+            <div class="eyebrow" id="Eyebrow">Compliance Control</div>
+            <h1 id="Title"></h1>
+            <div class="badges" id="Badges"></div>
+        </div>
+    </header>
+
+    <main id="Content"></main>
 </div>
 
 <script>
     const control = {"id": "docs-02", "name": "Architecture API and Workflow Documentation", "description": "Architecture, APIs, and workflows are documented.", "priority": "high", "weight": 1.0, "status": "yellow", "score": 2, "owner": "", "last_reviewed": "", "target_date": "", "notes": "", "evidence_links": [], "evidence_examples": ["Architecture diagrams", "API docs", "Workflow guides"], "scoring_criteria": {"red": "Core architecture and workflows are poorly documented.", "yellow": "Some core artifacts are documented, but important gaps remain.", "green": "Architecture, APIs, and workflows are documented and maintained."}};
     const domain = {"id": "docs", "name": "Documentation and Knowledge Management", "description": "Accessible, current knowledge that supports scale and resilience.", "weight": 1.1};
 
-    function escapeHtml(value) {
+    function esc(value) {
         return String(value ?? '')
             .replaceAll('&', '&amp;')
             .replaceAll('<', '&lt;')
             .replaceAll('>', '&gt;')
             .replaceAll('"', '&quot;')
             .replaceAll("'", '&#39;');
-    }
-
-    function listOrEmpty(items, formatter) {
-        if (!items || !items.length) return '<div class="detail-item">No details captured.</div>';
-        return items.map(formatter).join('');
     }
 
     function formatDate(dateValue) {
@@ -209,70 +343,64 @@
         return date.toLocaleDateString('en-GB', {year: 'numeric', month: 'short', day: 'numeric'});
     }
 
-    document.getElementById('Title').innerHTML = escapeHtml(control.name || control.id || 'Compliance Control');
-    document.getElementById('Meta').innerHTML = escapeHtml(domain.name || '');
-
-    let controlHtml = '';
-    controlHtml += '<div class="section"><div class="section-title">Summary</div><div class="description">' + escapeHtml(control.description || '') + '</div></div>';
-    controlHtml += '<div class="section"><div class="section-title">Control Snapshot</div><div class="stats">';
-    controlHtml += '<div class="stat"><div class="stat-value">' + escapeHtml(control.priority || 'n/a') + '</div><div class="stat-label">Priority</div></div>';
-    controlHtml += '<div class="stat"><div class="stat-value">' + escapeHtml(control.owner || 'Unassigned') + '</div><div class="stat-label">Owner</div></div>';
-    controlHtml += '<div class="stat"><div class="stat-value">' + escapeHtml(formatDate(control.last_reviewed)) + '</div><div class="stat-label">Last Reviewed</div></div>';
-    controlHtml += '<div class="stat"><div class="stat-value">' + escapeHtml(formatDate(control.target_date)) + '</div><div class="stat-label">Target Date</div></div>';
-    controlHtml += '</div></div>';
-
-    if (control.notes) {
-        controlHtml += '<div class="section"><div class="section-title">Notes</div><div class="description">' + escapeHtml(control.notes) + '</div></div>';
+    function card(title, bodyHtml) {
+        return '<section class="card"><div class="section-title">' + esc(title) + '</div>' + bodyHtml + '</section>';
     }
 
-    controlHtml += '<div class="section"><div class="section-title">Status</div><div class="criteria-grid">';
+    function itemList(items, formatter) {
+        if (!items || !items.length) return '<div class="empty-note">Nothing captured yet.</div>';
+        return '<ul class="item-list">' + items.map(i => '<li>' + formatter(i) + '</li>').join('') + '</ul>';
+    }
+
+    // Header
+    document.getElementById('Title').textContent = control.name || control.id || 'Compliance Control';
+    if (domain.name) document.getElementById('Eyebrow').textContent = domain.name;
+
+    let badges = '';
+    if (control.status) {
+        badges += '<span class="status-pill ' + esc(control.status) + '"><span class="dot"></span>' + esc(control.status) + '</span>';
+    }
+    if (control.inFocus) badges += '<span class="focus-badge">In Focus</span>';
+    if (control.id) badges += '<span class="control-id">' + esc(control.id) + '</span>';
+    document.getElementById('Badges').innerHTML = badges;
+
+    // Body
+    let html = '';
+
+    if (control.description) {
+        html += card('Summary', '<div class="description">' + esc(control.description) + '</div>');
+    }
+
+    let stats = '<div class="stats">';
+    stats += '<div class="stat"><div class="stat-value">' + esc(control.priority || 'n/a') + '</div><div class="stat-label">Priority</div></div>';
+    stats += '<div class="stat"><div class="stat-value">' + esc(control.owner || 'Unassigned') + '</div><div class="stat-label">Owner</div></div>';
+    stats += '<div class="stat"><div class="stat-value">' + esc(formatDate(control.last_reviewed)) + '</div><div class="stat-label">Last Reviewed</div></div>';
+    stats += '<div class="stat"><div class="stat-value">' + esc(formatDate(control.target_date)) + '</div><div class="stat-label">Target Date</div></div>';
+    stats += '</div>';
+    html += card('Snapshot', stats);
+
+    let criteria = '<div class="criteria-grid">';
     ['red', 'yellow', 'green'].forEach(status => {
         const text = control.scoring_criteria && control.scoring_criteria[status]
             ? control.scoring_criteria[status]
             : 'No criteria defined.';
         const isActive = control.status === status;
-        controlHtml += '<div class="criteria-card ' + status + (isActive ? ' active' : ' inactive') + '">';
-        controlHtml += '<h3>' + escapeHtml(status.toUpperCase()) + '</h3>';
-        controlHtml += '<div style="font-size: 90%; color: grey">' + escapeHtml(text) + '</div></div>';
+        criteria += '<div class="criteria-card ' + status + (isActive ? ' active' : ' inactive') + '">';
+        criteria += '<div class="criteria-head"><span class="dot"></span>' + esc(status) + (isActive ? '<span class="current-tag">Current</span>' : '') + '</div>';
+        criteria += '<div class="criteria-text">' + esc(text) + '</div></div>';
     });
-    controlHtml += '</div></div>';
+    criteria += '</div>';
+    html += card('Scoring Criteria', criteria);
 
-    controlHtml += '<div class="section"><div class="section-title">Evidence Examples</div>';
-    controlHtml += listOrEmpty(control.evidence_examples, item => '<div class="evidence-item">' + escapeHtml(item) + '</div>');
-    controlHtml += '</div>';
-
-    let evidenceHtml = '';
-    evidenceHtml += '<div class="section"><div class="section-title">Evidence Links</div>';
-    evidenceHtml += listOrEmpty(control.evidence_links, item => '<div class="evidence-item"><a href="' + escapeHtml(item) + '" target="_blank" rel="noopener noreferrer">' + escapeHtml(item) + '</a></div>');
-    evidenceHtml += '</div>';
-
-    document.getElementById('control-tab').innerHTML = controlHtml;
-    document.getElementById('evidence-tab').innerHTML = evidenceHtml;
-
-    function initTab() {
-        let tabName = 'control-tab';
-        if (window.location.hash) {
-            const hash = window.location.hash.substring(1);
-            if (document.getElementById('tab_' + hash)) {
-                tabName = hash;
-            }
-        }
-        openTab(tabName);
+    if (control.notes) {
+        html += card('Notes', '<div class="description">' + esc(control.notes) + '</div>');
     }
 
-    function openTab(tabName) {
-        const tabcontent = document.getElementsByClassName('tabcontent');
-        for (let i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = 'none';
-        }
-        const tablinks = document.getElementsByClassName('tablinks');
-        for (let i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(' active', '');
-        }
-        history.pushState({}, '', '#' + tabName);
-        document.getElementById(tabName).style.display = 'block';
-        document.getElementById('tab_' + tabName).className += ' active';
-    }
+    html += card('Evidence Examples', itemList(control.evidence_examples, item => esc(item)));
+    html += card('Evidence Links', itemList(control.evidence_links, item =>
+        '<a href="' + esc(item) + '" target="_blank" rel="noopener noreferrer">' + esc(item) + '</a>'));
+
+    document.getElementById('Content').innerHTML = html;
 </script>
 </body>
 </html>
